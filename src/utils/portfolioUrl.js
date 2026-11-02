@@ -5,7 +5,7 @@ export const getPortfolioOrigin = () => {
   if (typeof window !== 'undefined' && window.location?.origin) {
     return window.location.origin;
   }
-  return 'https://linkme-k4qb.onrender.com';
+  return '';
 };
 
 export const getPortfolioHost = () => {
@@ -13,7 +13,7 @@ export const getPortfolioHost = () => {
     const origin = getPortfolioOrigin();
     return new URL(origin).host;
   } catch {
-    return 'linkme-k4qb.onrender.com';
+    return '';
   }
 };
 

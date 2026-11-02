@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useProfile } from '../Context/ProfileContext';
+import { useProfile } from '../context/ProfileContext';
 import { loginUser as loginAccount } from '../Services/userServices';
 
 export default function Login() {

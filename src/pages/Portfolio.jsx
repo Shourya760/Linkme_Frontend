@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Check, Copy, ExternalLink, ArrowLeft, Star, QrCode, Sparkles, UserX } from 'lucide-react';
 import { FaShareNodes } from 'react-icons/fa6';
-import { useProfile } from '../Context/ProfileContext';
+import { useProfile } from '../context/ProfileContext';
 import { THEMES, BUTTON_STYLES, FONT_STYLES, PLATFORMS } from '../utils/storage';
 import { getPublicProfile } from '../Services/profileServices';
 import { getPortfolioUrl, getPortfolioHost } from '../utils/portfolioUrl';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, ChevronLeft, ExternalLink, Copy, Check, Eye, RotateCcw } from 'lucide-react';
-import { useProfile } from '../Context/ProfileContext';
+import { useProfile } from '../context/ProfileContext';
 import Navbar from '../components/Navbar';
 import StepperHeader from '../components/wizard/StepperHeader';
 import { WIZARD_STEPS } from '../utils/steps';
@@ -82,18 +82,16 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setMobileViewTab('editor')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${
-              mobileViewTab === 'editor' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
-            }`}
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${mobileViewTab === 'editor' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
+              }`}
           >
             Step {currentStep} Form
           </button>
           <button
             type="button"
             onClick={() => setMobileViewTab('preview')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${
-              mobileViewTab === 'preview' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
-            }`}
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${mobileViewTab === 'preview' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
+              }`}
           >
             <Eye size={14} />
             <span>Live Card Preview</span>

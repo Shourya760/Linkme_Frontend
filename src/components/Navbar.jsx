@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
-import { useProfile } from '../Context/ProfileContext';
+import { useProfile } from '../context/ProfileContext';
 import { getPortfolioUrl } from '../utils/portfolioUrl';
 
 export default function Navbar() {
@@ -25,18 +25,16 @@ export default function Navbar() {
         <nav className="flex items-center gap-1 sm:gap-2">
           <Link
             to="/"
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-              isActive('/') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'
-            }`}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${isActive('/') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'
+              }`}
           >
             Home
           </Link>
 
           <Link
             to="/settings"
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-              isActive('/settings') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'
-            }`}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${isActive('/settings') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'
+              }`}
           >
             Settings
           </Link>

@@ -1,16 +1,16 @@
-# LinkMe
+# LinkMe frontend
 
-Static React and Vite portfolio editor. It uses browser `localStorage` for profile data and needs no backend or API environment variables.
+React/Vite frontend for LinkMe. Authentication and profile data use the API through `src/api/axios.js` and the service modules.
 
-## Run locally
+## Local development
 
 ```sh
 npm ci
 npm run dev
 ```
 
-## Deploy
+Vite proxies `/api` requests to the local backend at `http://localhost:3000`.
 
-Deploy the `Frontend` directory as a static Vite app. Use `npm ci` to install dependencies and `npm run build` to create `dist`. Configure the host to rewrite app routes to `index.html` for React Router. No API URL or secrets are required.
+## Production
 
-Profiles and uploaded images are stored only in the current browser. Sharing a URL does not transfer the saved profile to another device or visitor.
+Set `VITE_API_URL` to the deployed API origin with `/api` appended. Netlify builds this app with `npm run build` and publishes `dist`. After changing `VITE_API_URL`, trigger a new deployment because Vite embeds it at build time.

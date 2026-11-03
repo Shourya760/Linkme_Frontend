@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Check, Copy, ExternalLink, ArrowLeft, Star, QrCode, Sparkles, UserX } from 'lucide-react';
 import { FaShareNodes } from 'react-icons/fa6';
 import { useProfile } from '../context/useProfile.js';
 import { THEMES, BUTTON_STYLES, FONT_STYLES, PLATFORMS } from '../utils/storage';
 import { getPortfolioUrl, getPortfolioHost } from '../utils/portfolioUrl';
+import { getPublicProfile } from '../services/profileServices.js';
 import { SOCIAL_ICONS, getSocialUrl, getCustomLinkIcon } from '../utils/socials';
 import QrModal from '../components/qr-modal.jsx';
 
@@ -12,14 +13,31 @@ import QrModal from '../components/qr-modal.jsx';
 export default function Portfolio() {
   const { username } = useParams();
   const { profile: localProfile } = useProfile();
+  const [remoteResult, setRemoteResult] = useState(null);
   const [copied, setCopied] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const isSelf = !username || (localProfile.username && username.toLowerCase() === localProfile.username.toLowerCase());
   const isOwner = Boolean(isSelf && (localProfile.username || localProfile.name));
-  const publicProfileError = !isSelf;
-  const profile = isSelf ? localProfile : null;
+
+  useEffect(() => {
+    if (!username || isSelf) return;
+    let cancelled = false;
+    getPublicProfile(username)
+      .then(({ profile: fetched }) => {
+        if (!cancelled) setRemoteResult({ username, profile: fetched });
+      })
+      .catch((error) => {
+        if (!cancelled) setRemoteResult({ username, error: error.response?.data?.message || 'Portfolio not found' });
+      });
+    return () => { cancelled = true; };
+  }, [username, isSelf]);
+
+  const currentResult = remoteResult?.username === username ? remoteResult : null;
+  const publicProfileError = currentResult?.error || '';
+  const isLoading = Boolean(username && !isSelf && !currentResult);
+  const profile = isSelf ? localProfile : currentResult?.profile;
   const portfolioHost = getPortfolioHost();
   const shareUrl = getPortfolioUrl(profile?.username || username);
 
@@ -40,7 +58,11 @@ export default function Portfolio() {
   const isOutline = btnStyle.id === 'outline';
   const linkShape = isPill ? 'rounded-full px-5' : isSquare ? 'rounded-lg' : isOutline ? 'rounded-2xl border-2' : 'rounded-2xl';
 
-  if (publicProfileError || (!username && !localProfile.username && !localProfile.name)) {
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center text-sm text-zinc-500">Loading portfolio…</div>;
+  }
+
+  if (publicProfileError || (!profile && username) || (!username && !localProfile.username && !localProfile.name)) {
     const isNotFound = Boolean(publicProfileError);
     return (
       <div className="min-h-screen bg-neutral-50 flex flex-col items-center justify-center p-6 text-center">
@@ -54,7 +76,7 @@ export default function Portfolio() {
             </h1>
             <p className="text-sm text-zinc-500 leading-relaxed">
               {isNotFound ? (
-                <>No saved profile for <span className="font-mono font-semibold text-zinc-800">@{username}</span> exists in this browser.</>
+                <>We couldn't find a public portfolio for <span className="font-mono font-semibold text-zinc-800">@{username}</span>.</>
               ) : (
                 'No portfolio was specified. Create your free link in bio to showcase your work, socials, and links in minutes.'
               )}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Upload, Plus, Trash2, Image as ImageIcon, Star } from 'lucide-react';
-import { readImage } from '../../utils/readImage.js';
+import { uploadImage } from '../../services/userServices.js';
 
 const SUGGESTED_INTERESTS = [
   'UI/UX Design', 'React & Vite', 'Typography', 'AI & Prompts', 'Productivity',
@@ -34,7 +34,8 @@ export default function Step4Photos({
       return;
     }
     try {
-      setPhotoPreview(await readImage(file));
+      const { url } = await uploadImage(file);
+      setPhotoPreview(url);
     } catch (error) {
       alert(error.message);
     }

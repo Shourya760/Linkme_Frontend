@@ -1,6 +1,6 @@
 import { Upload, Sparkles } from 'lucide-react';
+import { uploadImage } from '../../services/userServices.js';
 import { getPortfolioHost } from '../../utils/portfolioUrl';
-import { readImage } from '../../utils/readImage.js';
 
 const BIO_TEMPLATES = [
   'Designing minimalist interfaces and crafting open-source digital tools. Exploring AI and typography.',
@@ -18,7 +18,8 @@ export default function Step1Profile({ profile, updateProfile }) {
       return;
     }
     try {
-      updateProfile({ avatar: await readImage(file) });
+      const { url } = await uploadImage(file);
+      updateProfile({ avatar: url });
     } catch (error) {
       alert(error.message);
     }

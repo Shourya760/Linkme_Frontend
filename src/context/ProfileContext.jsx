@@ -1,9 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileContext from './profileContext.js';
 import { EMPTY_PROFILE, getStoredProfile, normalizeProfile, saveStoredProfile } from '../utils/storage.js';
+import { getMyProfile, updateMyProfile } from '../services/profileServices.js';
+import { logoutUser } from '../services/userServices.js';
 
 export function ProfileProvider({ children }) {
   const [profile, setProfile] = useState(getStoredProfile);
+  const [loading, setLoading] = useState(() => Boolean(localStorage.getItem('linkme_token')));
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem('linkme_token')) return;
+    let cancelled = false;
+    getMyProfile()
+      .then(({ profile: remote }) => {
+        if (cancelled) return;
+        const next = normalizeProfile({ ...remote, email: remote.email || getStoredProfile().email });
+        saveStoredProfile(next);
+        setProfile(next);
+      })
+      .catch((error) => {
+        if (!cancelled && error.response?.status === 401) {
+          localStorage.removeItem('linkme_token');
+          localStorage.removeItem('linkme_profile');
+          setProfile(normalizeProfile(EMPTY_PROFILE));
+        }
+      })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, []);
 
   const updateProfile = (fields) => {
     const next = normalizeProfile({ ...profile, ...fields });
@@ -56,13 +81,41 @@ export function ProfileProvider({ children }) {
     setProfile(next);
     saveStoredProfile(next);
   };
-  const saveProfile = async () => profile;
+  const saveProfile = async () => {
+    setSaving(true);
+    try {
+      const { profile: saved } = await updateMyProfile(profile);
+      const next = normalizeProfile({ ...saved, email: profile.email });
+      setProfile(next);
+      saveStoredProfile(next);
+      return next;
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const login = (user, serverProfile) => {
+    const next = normalizeProfile({ ...(serverProfile || EMPTY_PROFILE), email: user?.email || '' });
+    setProfile(next);
+    saveStoredProfile(next);
+  };
+
+  const register = (user, serverProfile) => login(user, serverProfile);
+
+  const logout = async () => {
+    try { await logoutUser(); } catch { /* Local sign out should work without the API. */ }
+    localStorage.removeItem('linkme_token');
+    localStorage.removeItem('linkme_profile');
+    const next = normalizeProfile(EMPTY_PROFILE);
+    setProfile(next);
+    saveStoredProfile(next);
+  };
 
   return (
     <ProfileContext.Provider value={{
       profile,
-      loading: false,
-      saving: false,
+      loading,
+      saving,
       saveProfile,
       updateProfile,
       updateTheme,
@@ -77,6 +130,9 @@ export function ProfileProvider({ children }) {
       removeInterest,
       addAchievement,
       removeAchievement,
+      login,
+      register,
+      logout,
       resetToDefault,
     }}>
       {children}

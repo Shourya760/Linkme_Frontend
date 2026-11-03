@@ -1,11 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
 import { useProfile } from '../context/useProfile.js';
 import { getPortfolioUrl } from '../utils/portfolioUrl';
 
 export default function Navbar() {
-  const { profile } = useProfile();
+  const { profile, logout } = useProfile();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path) => location.pathname === path;
 
@@ -48,7 +49,17 @@ export default function Navbar() {
             <ExternalLink size={14} className="text-zinc-400" />
           </a>
 
-          {profile.username && <span className="hidden sm:block text-xs text-zinc-500">@{profile.username}</span>}
+          {profile.isAuthenticated ? (
+            <>
+              {profile.username && <span className="hidden sm:block text-xs text-zinc-500">@{profile.username}</span>}
+              <button type="button" onClick={async () => { await logout(); navigate('/login'); }} className="px-2 py-1.5 text-sm text-zinc-500 hover:text-zinc-900">Sign out</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="px-2 py-1.5 text-sm text-zinc-600 hover:text-zinc-900">Sign in</Link>
+              <Link to="/register" className="rounded-lg bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800">Create account</Link>
+            </>
+          )}
         </nav>
       </div>
     </header>

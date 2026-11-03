@@ -1,23 +1,40 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { useProfile } from '../context/useProfile.js';
 import Navbar from '../components/Navbar';
 import { getPortfolioHost } from '../utils/portfolioUrl';
+import { updateMyProfile } from '../services/profileServices.js';
 
 export default function Settings() {
-  const { profile, updateProfile, resetToDefault } = useProfile();
+  const { profile, updateProfile, resetToDefault, logout } = useProfile();
+  const navigate = useNavigate();
   const [username, setUsername] = useState(profile.username || '');
+  const [email, setEmail] = useState(profile.email || '');
   const [isPublic, setIsPublic] = useState(profile.isPublic ?? true);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSave = (event) => {
+  const handleSave = async (event) => {
     event.preventDefault();
-    updateProfile({
+    setSaving(true);
+    setError('');
+    const changes = {
       username: username.toLowerCase().replace(/[^a-z0-9_-]/g, ''),
+      email: email.trim().toLowerCase(),
       isPublic,
-    });
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2000);
+    };
+    try {
+      const { profile: savedProfile } = await updateMyProfile(changes);
+      updateProfile(savedProfile);
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2000);
+    } catch (requestError) {
+      setError(requestError.response?.data?.message || requestError.message || 'Could not save settings.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleReset = () => {
@@ -30,7 +47,7 @@ export default function Settings() {
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10 space-y-8">
         <div>
           <h1 className="text-xl font-bold tracking-tight">Settings</h1>
-          <p className="text-xs text-zinc-500 mt-1">Your profile is saved in this browser.</p>
+          <p className="text-xs text-zinc-500 mt-1">Manage your account and public profile.</p>
         </div>
 
         <form onSubmit={handleSave} className="bg-white border border-zinc-200/90 rounded-2xl p-6 space-y-5">
@@ -48,23 +65,29 @@ export default function Settings() {
             </div>
           </div>
 
+          <label className="block text-xs font-medium text-zinc-700">Account email
+            <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} className="mt-1.5 w-full rounded-xl border border-zinc-200 px-3.5 py-2.5 text-sm font-normal focus:outline-none focus:border-zinc-900" />
+          </label>
+
           <div className="flex items-center justify-between border-t border-zinc-100 pt-4">
             <div>
               <p className="text-xs font-medium">Public visibility</p>
-              <p className="text-[11px] text-zinc-400">Controls the visibility badge in your preview.</p>
+              <p className="text-[11px] text-zinc-400">Allow visitors to view your public portfolio.</p>
             </div>
             <input type="checkbox" checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} />
           </div>
 
           <div className="flex items-center gap-3">
-            <button type="submit" className="bg-zinc-900 text-white px-5 py-2 rounded-xl text-xs font-medium hover:bg-zinc-800">
-              {saved ? <span className="inline-flex items-center gap-1"><Check size={14} /> Saved</span> : 'Save Settings'}
+            <button type="submit" disabled={saving} className="bg-zinc-900 text-white px-5 py-2 rounded-xl text-xs font-medium hover:bg-zinc-800 disabled:opacity-60">
+              {saved ? <span className="inline-flex items-center gap-1"><Check size={14} /> Saved</span> : saving ? 'Saving…' : 'Save Settings'}
             </button>
             <button type="button" onClick={handleReset} className="px-4 py-2 rounded-xl text-xs font-medium text-red-600 border border-red-200 hover:bg-red-50">
               Clear profile content
             </button>
           </div>
+          {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
         </form>
+        <button type="button" onClick={async () => { await logout(); navigate('/login'); }} className="text-sm text-red-600 hover:text-red-700">Sign out</button>
       </main>
     </div>
   );

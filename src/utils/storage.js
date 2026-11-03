@@ -173,7 +173,9 @@ export const EMPTY_PROFILE = {
     buttonStyle: 'rounded',
     fontStyle: 'sans',
   },
+  email: '',
   isPublic: true,
+  isAuthenticated: false,
 };
 
 const STORAGE_KEY = 'linkme_profile';
@@ -188,6 +190,7 @@ export const normalizeProfile = (profile = {}) => ({
   photos: Array.isArray(profile.photos) ? profile.photos : [],
   interests: Array.isArray(profile.interests) ? profile.interests : [],
   achievements: Array.isArray(profile.achievements) ? profile.achievements : [],
+  isAuthenticated: Boolean(localStorage.getItem('linkme_token')),
 });
 
 export const getStoredProfile = () => {

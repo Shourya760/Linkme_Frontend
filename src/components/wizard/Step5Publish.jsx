@@ -4,7 +4,7 @@ import { FaWhatsapp, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { THEMES } from '../../utils/storage';
 import { getPortfolioUrl, getPortfolioHost } from '../../utils/portfolioUrl';
-import QrModal from '../QrModal';
+import QrModal from '../qr-modal.jsx';
 
 export default function Step5Publish({ profile }) {
   const [copied, setCopied] = useState(false);

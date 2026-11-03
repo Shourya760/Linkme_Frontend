@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getStoredProfile, saveStoredProfile, EMPTY_PROFILE, normalizeProfile, EVENT_NAME } from '../utils/storage';
-import { getMyProfile, updateMyProfile } from '../Services/profileServices';
-import { logoutUser as logoutRequest } from '../Services/userServices';
+import { getMyProfile, updateMyProfile } from '../services/profileServices.js';
+import { logoutUser as logoutRequest } from '../services/userServices.js';
 
 const ProfileContext = createContext(null);
 

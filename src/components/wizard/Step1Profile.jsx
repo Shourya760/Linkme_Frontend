@@ -1,5 +1,5 @@
 import { Upload, Sparkles } from 'lucide-react';
-import { uploadImage } from '../../Services/userServices';
+import { uploadImage } from '../../services/userServices.js';
 import { getPortfolioHost } from '../../utils/portfolioUrl';
 
 const BIO_TEMPLATES = [

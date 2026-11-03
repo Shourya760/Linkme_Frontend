@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 import Navbar from '../components/Navbar';
-import { updateMyProfile } from '../Services/profileServices';
+import { updateMyProfile } from '../services/profileServices.js';
 import { getPortfolioHost } from '../utils/portfolioUrl';
 
 function SettingsForm({ profile, onProfileUpdate }) {

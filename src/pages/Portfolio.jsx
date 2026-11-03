@@ -4,7 +4,7 @@ import { Check, Copy, ExternalLink, ArrowLeft, Star, QrCode, Sparkles, UserX } f
 import { FaShareNodes } from 'react-icons/fa6';
 import { useProfile } from '../context/ProfileContext';
 import { THEMES, BUTTON_STYLES, FONT_STYLES, PLATFORMS } from '../utils/storage';
-import { getPublicProfile } from '../Services/profileServices';
+import { getPublicProfile } from '../services/profileServices.js';
 import { getPortfolioUrl, getPortfolioHost } from '../utils/portfolioUrl';
 import { SOCIAL_ICONS, getSocialUrl, getCustomLinkIcon } from '../utils/socials';
 import QrModal from '../components/QrModal';

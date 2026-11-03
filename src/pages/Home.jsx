@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, ChevronLeft, ExternalLink, Copy, Check, Eye, RotateCcw } from 'lucide-react';
-import { useProfile } from '../context/ProfileContext';
+import { useProfile } from '../context/useProfile.js';
 import Navbar from '../components/Navbar';
 import StepperHeader from '../components/wizard/StepperHeader';
 import { WIZARD_STEPS } from '../utils/steps';

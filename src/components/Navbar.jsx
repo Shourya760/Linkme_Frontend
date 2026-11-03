@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
-import { useProfile } from '../context/ProfileContext';
+import { useProfile } from '../context/useProfile.js';
 import { getPortfolioUrl } from '../utils/portfolioUrl';
 
 export default function Navbar() {

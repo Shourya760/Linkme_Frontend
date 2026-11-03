@@ -1,21 +1,24 @@
 import { Download } from 'lucide-react';
-import { getPortfolioHost } from '../utils/portfolioUrl';
+import { getPortfolioHost, getPortfolioUrl } from '../utils/portfolioUrl.js';
 
 export default function QrModal({ isOpen, onClose, username, title }) {
-  if (!isOpen) return null;
+  if (!isOpen || !username) return null;
 
-  const displayHandle = username || 'user';
-  const profileUrl = typeof window !== 'undefined' ? `${window.location.origin}/${encodeURIComponent(displayHandle)}` : `https://${getPortfolioHost()}/${displayHandle}`;
+  const displayHandle = String(username).trim();
+  const profileUrl = getPortfolioUrl(displayHandle);
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(profileUrl)}&margin=10`;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" onClick={onClose}>
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="qr-modal-title"
         className="bg-white rounded-3xl p-6 sm:p-7 max-w-sm w-full text-center space-y-4 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-bold text-zinc-900">
+          <h4 id="qr-modal-title" className="text-sm font-bold text-zinc-900">
             {title || `QR Code for @${displayHandle}`}
           </h4>
           <button

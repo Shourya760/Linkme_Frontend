@@ -2,19 +2,18 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Check, Copy, ExternalLink, ArrowLeft, Star, QrCode, Sparkles, UserX } from 'lucide-react';
 import { FaShareNodes } from 'react-icons/fa6';
-import { useProfile } from '../context/ProfileContext';
+import { useProfile } from '../context/useProfile.js';
 import { THEMES, BUTTON_STYLES, FONT_STYLES, PLATFORMS } from '../utils/storage';
 import { getPublicProfile } from '../services/profileServices.js';
 import { getPortfolioUrl, getPortfolioHost } from '../utils/portfolioUrl';
 import { SOCIAL_ICONS, getSocialUrl, getCustomLinkIcon } from '../utils/socials';
+import QrModal from '../components/qr-modal.jsx';
 
 
 export default function Portfolio() {
   const { username } = useParams();
   const { profile: localProfile, loading: localLoading } = useProfile();
-  const [remoteProfile, setRemoteProfile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [publicProfileError, setPublicProfileError] = useState('');
+  const [remoteResult, setRemoteResult] = useState(null);
   const [copied, setCopied] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -26,26 +25,28 @@ export default function Portfolio() {
     if (isSelf) return;
 
     let cancelled = false;
-    setIsLoading(true);
-    setPublicProfileError('');
-
     getPublicProfile(username)
       .then(({ profile: fetched }) => {
         if (!cancelled) {
-          setRemoteProfile(fetched);
-          setIsLoading(false);
+          setRemoteResult({ username, profile: fetched });
         }
       })
       .catch((error) => {
         if (!cancelled) {
-          setPublicProfileError(error.response?.data?.message || 'Portfolio not found');
-          setIsLoading(false);
+          setRemoteResult({
+            username,
+            error: error.response?.data?.message || 'Portfolio not found',
+          });
         }
       });
 
     return () => { cancelled = true; };
   }, [username, isSelf]);
 
+  const currentRemoteResult = remoteResult?.username === username ? remoteResult : null;
+  const remoteProfile = currentRemoteResult?.profile || null;
+  const publicProfileError = currentRemoteResult?.error || '';
+  const isLoading = !isSelf && !currentRemoteResult;
   const profile = (isSelf ? localProfile : remoteProfile) || localProfile;
   const portfolioHost = getPortfolioHost();
   const shareUrl = getPortfolioUrl(profile?.username || username);

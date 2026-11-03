@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Check } from 'lucide-react';
-import { useProfile } from '../context/ProfileContext';
+import { useProfile } from '../context/useProfile.js';
 import Navbar from '../components/Navbar';
 import { updateMyProfile } from '../services/profileServices.js';
 import { getPortfolioHost } from '../utils/portfolioUrl';

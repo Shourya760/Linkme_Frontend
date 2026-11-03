@@ -1,16 +1,25 @@
-# React + Vite
+# LinkMe frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React and Vite client for LinkMe. Deployment instructions for the full application are in the repository [README](../README.md).
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+From the repository root, install dependencies and start both client and API:
 
-## React Compiler
+```sh
+npm --prefix Backend install
+npm --prefix Frontend install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The client runs at `http://localhost:5173` and proxies `/api` to the local API at `http://localhost:3000`.
 
-## Expanding the Oxlint configuration
+## Production build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Set `VITE_API_BASE_URL` to the deployed API base URL, including `/api` (for example `https://linkme-api.onrender.com/api`). Optionally set `VITE_PUBLIC_URL` to the public frontend origin. These are build-time Vite variables, so rebuild and redeploy after changing them.
+
+```sh
+npm ci
+npm run lint
+npm run build
+```

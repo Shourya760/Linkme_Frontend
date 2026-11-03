@@ -1,9 +1,8 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import ProfileContext from './profileContext.js';
 import { getStoredProfile, saveStoredProfile, EMPTY_PROFILE, normalizeProfile, EVENT_NAME } from '../utils/storage';
 import { getMyProfile, updateMyProfile } from '../services/profileServices.js';
 import { logoutUser as logoutRequest } from '../services/userServices.js';
-
-const ProfileContext = createContext(null);
 
 export function ProfileProvider({ children }) {
   const [profile, setProfile] = useState(getStoredProfile);
@@ -220,10 +219,4 @@ export function ProfileProvider({ children }) {
       {children}
     </ProfileContext.Provider>
   );
-}
-
-export function useProfile() {
-  const context = useContext(ProfileContext);
-  if (!context) throw new Error('useProfile must be used inside ProfileProvider');
-  return context;
 }

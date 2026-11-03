@@ -7,7 +7,7 @@ import { THEMES, BUTTON_STYLES, FONT_STYLES, PLATFORMS } from '../utils/storage'
 import { getPublicProfile } from '../services/profileServices.js';
 import { getPortfolioUrl, getPortfolioHost } from '../utils/portfolioUrl';
 import { SOCIAL_ICONS, getSocialUrl, getCustomLinkIcon } from '../utils/socials';
-import QrModal from '../components/qr-modal.jsx';
+import QrModal from '../components/LinkMeQrModal.jsx';
 
 export default function Portfolio() {
   const { username } = useParams();

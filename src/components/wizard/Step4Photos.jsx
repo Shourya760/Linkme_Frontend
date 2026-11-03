@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Upload, Plus, Trash2, Image as ImageIcon, Star } from 'lucide-react';
-import { uploadImage } from '../../services/userServices.js';
+import { readImage } from '../../utils/readImage.js';
 
 const SUGGESTED_INTERESTS = [
   'UI/UX Design', 'React & Vite', 'Typography', 'AI & Prompts', 'Productivity',
@@ -29,13 +29,12 @@ export default function Step4Photos({
   const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      alert('Please choose an image under 2MB for fastest loading.');
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Please choose an image under 5MB.');
       return;
     }
     try {
-      const result = await uploadImage(file);
-      setPhotoPreview(result.url);
+      setPhotoPreview(await readImage(file));
     } catch (error) {
       alert(error.message);
     }

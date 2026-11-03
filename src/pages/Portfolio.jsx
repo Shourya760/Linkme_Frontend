@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Check, Copy, ExternalLink, ArrowLeft, Star, QrCode, Sparkles, UserX } from 'lucide-react';
 import { FaShareNodes } from 'react-icons/fa6';
 import { useProfile } from '../context/useProfile.js';
 import { THEMES, BUTTON_STYLES, FONT_STYLES, PLATFORMS } from '../utils/storage';
-import { getPublicProfile } from '../services/profileServices.js';
 import { getPortfolioUrl, getPortfolioHost } from '../utils/portfolioUrl';
 import { SOCIAL_ICONS, getSocialUrl, getCustomLinkIcon } from '../utils/socials';
 import QrModal from '../components/qr-modal.jsx';
@@ -12,42 +11,15 @@ import QrModal from '../components/qr-modal.jsx';
 
 export default function Portfolio() {
   const { username } = useParams();
-  const { profile: localProfile, loading: localLoading } = useProfile();
-  const [remoteResult, setRemoteResult] = useState(null);
+  const { profile: localProfile } = useProfile();
   const [copied, setCopied] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const isSelf = !username || (localProfile.username && username.toLowerCase() === localProfile.username.toLowerCase());
-  const isOwner = Boolean(localProfile.isAuthenticated && isSelf);
-
-  useEffect(() => {
-    if (isSelf) return;
-
-    let cancelled = false;
-    getPublicProfile(username)
-      .then(({ profile: fetched }) => {
-        if (!cancelled) {
-          setRemoteResult({ username, profile: fetched });
-        }
-      })
-      .catch((error) => {
-        if (!cancelled) {
-          setRemoteResult({
-            username,
-            error: error.response?.data?.message || 'Portfolio not found',
-          });
-        }
-      });
-
-    return () => { cancelled = true; };
-  }, [username, isSelf]);
-
-  const currentRemoteResult = remoteResult?.username === username ? remoteResult : null;
-  const remoteProfile = currentRemoteResult?.profile || null;
-  const publicProfileError = currentRemoteResult?.error || '';
-  const isLoading = !isSelf && !currentRemoteResult;
-  const profile = (isSelf ? localProfile : remoteProfile) || localProfile;
+  const isOwner = Boolean(isSelf && (localProfile.username || localProfile.name));
+  const publicProfileError = !isSelf;
+  const profile = isSelf ? localProfile : null;
   const portfolioHost = getPortfolioHost();
   const shareUrl = getPortfolioUrl(profile?.username || username);
 
@@ -68,32 +40,6 @@ export default function Portfolio() {
   const isOutline = btnStyle.id === 'outline';
   const linkShape = isPill ? 'rounded-full px-5' : isSquare ? 'rounded-lg' : isOutline ? 'rounded-2xl border-2' : 'rounded-2xl';
 
-  if (isLoading || (!username && localLoading)) {
-    return (
-      <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white border border-zinc-200 rounded-3xl p-8 sm:p-10 shadow-lg space-y-6 animate-pulse text-center">
-          <div className="w-24 h-24 rounded-full bg-zinc-200 mx-auto" />
-          <div className="space-y-2.5">
-            <div className="h-6 w-40 bg-zinc-200 rounded-full mx-auto" />
-            <div className="h-4 w-32 bg-zinc-100 rounded-full mx-auto" />
-            <div className="h-3.5 w-56 bg-zinc-100 rounded-full mx-auto pt-1" />
-          </div>
-          <div className="flex justify-center gap-2 pt-2">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="w-9 h-9 rounded-full bg-zinc-100" />
-            ))}
-          </div>
-          <div className="space-y-3 pt-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-14 bg-zinc-100 rounded-2xl w-full" />
-            ))}
-          </div>
-        </div>
-        <p className="text-xs text-zinc-400 mt-6 font-medium">Loading portfolio...</p>
-      </div>
-    );
-  }
-
   if (publicProfileError || (!username && !localProfile.username && !localProfile.name)) {
     const isNotFound = Boolean(publicProfileError);
     return (
@@ -108,18 +54,18 @@ export default function Portfolio() {
             </h1>
             <p className="text-sm text-zinc-500 leading-relaxed">
               {isNotFound ? (
-                <>We couldn't find a portfolio for <span className="font-mono font-semibold text-zinc-800">@{username}</span>. This link might be private, inactive, or not registered yet.</>
+                <>No saved profile for <span className="font-mono font-semibold text-zinc-800">@{username}</span> exists in this browser.</>
               ) : (
                 'No portfolio was specified. Create your free link in bio to showcase your work, socials, and links in minutes.'
               )}
             </p>
           </div>
           <div className="pt-2 flex flex-col sm:flex-row gap-2.5">
-            <Link to="/register" className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white py-2.5 px-4 rounded-xl text-xs font-bold transition shadow-xs">
-              {isNotFound ? `Claim @${username || 'handle'}` : 'Create Free Portfolio'}
+            <Link to="/" className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white py-2.5 px-4 rounded-xl text-xs font-bold transition shadow-xs">
+              {isNotFound ? 'Open editor' : 'Create Portfolio'}
             </Link>
-            <Link to={isNotFound ? '/' : '/login'} className="flex-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 py-2.5 px-4 rounded-xl text-xs font-semibold transition">
-              {isNotFound ? 'Back to Home' : 'Sign In'}
+            <Link to="/settings" className="flex-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 py-2.5 px-4 rounded-xl text-xs font-semibold transition">
+              Settings
             </Link>
           </div>
         </div>

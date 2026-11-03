@@ -1,6 +1,6 @@
 import { Upload, Sparkles } from 'lucide-react';
-import { uploadImage } from '../../services/userServices.js';
 import { getPortfolioHost } from '../../utils/portfolioUrl';
+import { readImage } from '../../utils/readImage.js';
 
 const BIO_TEMPLATES = [
   'Designing minimalist interfaces and crafting open-source digital tools. Exploring AI and typography.',
@@ -13,13 +13,12 @@ export default function Step1Profile({ profile, updateProfile }) {
   const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      alert('Please select an image under 2MB for optimal performance.');
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Please select an image under 5MB.');
       return;
     }
     try {
-      const result = await uploadImage(file);
-      updateProfile({ avatar: result.url });
+      updateProfile({ avatar: await readImage(file) });
     } catch (error) {
       alert(error.message);
     }

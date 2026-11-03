@@ -37,7 +37,6 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
   const [mobileViewTab, setMobileViewTab] = useState('editor');
   const [copied, setCopied] = useState(false);
-  const [saveError, setSaveError] = useState('');
 
   const shareUrl = getPortfolioUrl(profile.username);
 
@@ -49,14 +48,9 @@ export default function Home() {
 
   const handleNext = async () => {
     if (currentStep >= WIZARD_STEPS.length) return;
-    setSaveError('');
-    try {
-      await saveProfile();
-      setCurrentStep((step) => step + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (error) {
-      setSaveError(error.message || 'Could not save your profile. Please try again.');
-    }
+    await saveProfile();
+    setCurrentStep((step) => step + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePrev = () => {
@@ -226,7 +220,6 @@ export default function Home() {
                 )}
               </div>
             </div>
-            {saveError && <p role="alert" className="text-sm text-red-600">{saveError}</p>}
           </div>
 
           <div className={`lg:col-span-5 lg:sticky lg:top-20 lg:h-[calc(100dvh-6rem)] ${mobileViewTab === 'editor' ? 'hidden lg:block' : ''}`}>

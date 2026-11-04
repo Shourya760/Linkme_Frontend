@@ -81,27 +81,27 @@ export default function Step4Photos({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-zinc-900 tracking-tight">4. Photos, Portfolio Media & Milestones</h2>
-        <p className="text-xs text-zinc-500 mt-0.5">Showcase visual portfolio items, photos, focus skills, and key accomplishments.</p>
+        <h2 className="text-lg font-bold text-zinc-900 tracking-tight">4. Photos & extras</h2>
+        <p className="text-xs text-zinc-500 mt-0.5">Add photos, skills, and milestones.</p>
       </div>
 
       <div className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 space-y-4 shadow-2xs">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
             <h3 className="text-sm font-bold text-zinc-900 flex items-center gap-1.5">
-              <ImageIcon size={16} className="text-zinc-600" />
-              <span>Photo Showcase & Portfolio Cards</span>
+              <ImageIcon size={16} className="text-zinc-600 shrink-0" />
+              <span>Photos</span>
             </h3>
-            <p className="text-xs text-zinc-500">Add photos of your projects, designs, workspace, or photography.</p>
+            <p className="text-xs text-zinc-500">Projects, designs, or photography.</p>
           </div>
 
           <button
             type="button"
             onClick={() => setShowAddPhoto(!showAddPhoto)}
-            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-2xs transition cursor-pointer"
+            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-2xs transition cursor-pointer shrink-0"
           >
             <Plus size={14} />
-            <span>Add Photo</span>
+            <span>Add</span>
           </button>
         </div>
 
@@ -214,12 +214,12 @@ export default function Step4Photos({
             type="text"
             value={newInterest}
             onChange={(e) => setNewInterest(e.target.value)}
-            placeholder="e.g. Product Strategy, AI Interfaces..."
-            className="flex-1 px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-zinc-900"
+            placeholder="e.g. Product Strategy"
+            className="min-w-0 flex-1 px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-zinc-900"
           />
-          <button type="submit" className="bg-zinc-900 hover:bg-zinc-800 text-white px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1">
+          <button type="submit" className="bg-zinc-900 hover:bg-zinc-800 text-white px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center gap-1 shrink-0">
             <Plus size={14} />
-            <span>Add Tag</span>
+            <span>Add</span>
           </button>
         </form>
 
@@ -288,11 +288,11 @@ export default function Step4Photos({
         <div className="space-y-2 pt-1">
           {profile.achievements?.length > 0 ? (
             profile.achievements.map((ach) => (
-              <div key={ach.id} className="flex items-center justify-between p-3 rounded-xl border border-zinc-200 bg-zinc-50/50 text-xs">
-                <div className="flex items-center gap-2">
-                  <Star size={13} className="text-amber-500 fill-amber-500" />
-                  <span className="font-semibold text-zinc-800">{ach.title}</span>
-                  {ach.year && <span className="text-[10px] font-mono text-zinc-500 bg-white border border-zinc-200 px-1.5 py-0.2 rounded">{ach.year}</span>}
+              <div key={ach.id} className="flex items-center justify-between gap-2 p-3 rounded-xl border border-zinc-200 bg-zinc-50/50 text-xs">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Star size={13} className="text-amber-500 fill-amber-500 shrink-0" />
+                  <span className="font-semibold text-zinc-800 truncate">{ach.title}</span>
+                  {ach.year && <span className="text-[10px] font-mono text-zinc-500 bg-white border border-zinc-200 px-1.5 py-0.2 rounded shrink-0">{ach.year}</span>}
                 </div>
                 <button type="button" onClick={() => removeAchievement(ach.id)} className="text-zinc-400 hover:text-red-500 transition cursor-pointer p-1" title="Delete achievement">
                   <Trash2 size={13} />

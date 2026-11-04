@@ -10,8 +10,8 @@ export default function Step3Design({ profile, updateTheme }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-zinc-900 tracking-tight">3. Design, Colors & Appearance</h2>
-        <p className="text-xs text-zinc-500 mt-0.5">Select visual themes, primary accent colors, button curvature, and typography.</p>
+        <h2 className="text-lg font-bold text-zinc-900 tracking-tight">3. Design</h2>
+        <p className="text-xs text-zinc-500 mt-0.5">Theme, accent color, buttons, and type.</p>
       </div>
 
       <div className="space-y-3">
@@ -58,12 +58,12 @@ export default function Step3Design({ profile, updateTheme }) {
       </div>
 
       <div className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 space-y-4 shadow-2xs">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Primary Accent Color</h3>
-            <p className="text-xs text-zinc-500 mt-0.5">Used for highlighted buttons, verified badges, and interactive elements.</p>
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Accent color</h3>
+            <p className="text-xs text-zinc-500 mt-0.5">Used on badges and highlights.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <span className="w-4 h-4 rounded-full border border-black/10" style={{ backgroundColor: currentAccent }} />
             <span className="text-xs font-mono text-zinc-600 font-medium">{currentAccent}</span>
           </div>

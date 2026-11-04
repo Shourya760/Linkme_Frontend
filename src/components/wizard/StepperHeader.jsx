@@ -6,18 +6,17 @@ export default function StepperHeader({ currentStep, onSelectStep }) {
 
   return (
     <div className="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <div className="min-w-0">
           <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">
             Step {currentStep} of {WIZARD_STEPS.length}
           </span>
-          <span className="text-zinc-300">•</span>
-          <span className="text-xs font-semibold text-zinc-800">
-            {WIZARD_STEPS[currentStep - 1]?.title}: {WIZARD_STEPS[currentStep - 1]?.subtitle}
-          </span>
+          <p className="text-xs font-semibold text-zinc-800 truncate">
+            {WIZARD_STEPS[currentStep - 1]?.title}
+          </p>
         </div>
-        <span className="text-xs font-bold text-zinc-900 font-mono">
-          {progressPercent}% Complete
+        <span className="text-xs font-bold text-zinc-900 font-mono shrink-0">
+          {progressPercent}%
         </span>
       </div>
 
@@ -39,7 +38,7 @@ export default function StepperHeader({ currentStep, onSelectStep }) {
               key={step.id}
               type="button"
               onClick={() => onSelectStep(step.id)}
-              className={`flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-2.5 p-2 rounded-xl text-left transition cursor-pointer group ${
+              className={`flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2.5 p-2 rounded-xl text-left transition cursor-pointer group ${
                 isActive
                   ? 'bg-zinc-900 text-white shadow-xs'
                   : isDone
@@ -67,10 +66,6 @@ export default function StepperHeader({ currentStep, onSelectStep }) {
                   {step.subtitle}
                 </p>
               </div>
-
-              <span className={`block sm:hidden text-[10px] font-bold ${isActive ? 'text-white' : 'text-zinc-600'}`}>
-                {step.title}
-              </span>
             </button>
           );
         })}

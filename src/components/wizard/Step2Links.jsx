@@ -48,12 +48,12 @@ export default function Step2Links({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-bold text-zinc-900 tracking-tight">2. Select Required Links & Platforms</h2>
-          <p className="text-xs text-zinc-500 mt-0.5">Select which social accounts and custom destination links you want to feature.</p>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 className="text-lg font-bold text-zinc-900 tracking-tight">2. Links</h2>
+          <p className="text-xs text-zinc-500 mt-0.5">Choose socials and custom links to show on your page.</p>
         </div>
-        <span className="text-xs font-semibold bg-zinc-100 text-zinc-700 px-3 py-1 rounded-full border border-zinc-200">
+        <span className="text-xs font-semibold bg-zinc-100 text-zinc-700 px-3 py-1 rounded-full border border-zinc-200 shrink-0">
           {activeCount} Selected
         </span>
       </div>
@@ -74,9 +74,9 @@ export default function Step2Links({
       </div>
 
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Choose Required Social Links</span>
-          <span className="text-[11px] text-zinc-400">Click card to enable or disable</span>
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Social links</span>
+          <span className="hidden sm:inline text-[11px] text-zinc-400">Tap a card to enable</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -110,7 +110,7 @@ export default function Step2Links({
                       isEnabled ? 'bg-zinc-900 text-white' : 'bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-100'
                     }`}
                   >
-                    {isEnabled ? 'Selected ✓' : '+ Select'}
+                    {isEnabled ? 'On' : 'Add'}
                   </button>
                 </div>
 
@@ -140,18 +140,18 @@ export default function Step2Links({
       </div>
 
       <div className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 space-y-4 shadow-2xs">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-bold text-zinc-900">Custom Destination Links</h3>
-            <p className="text-xs text-zinc-500">Add links to your portfolio projects, store, newsletter, bookings, or downloads.</p>
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold text-zinc-900">Custom links</h3>
+            <p className="text-xs text-zinc-500">Projects, store, newsletter, or bookings.</p>
           </div>
           <button
             type="button"
             onClick={() => setShowAddModal(!showAddModal)}
-            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-2xs transition cursor-pointer"
+            className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-2xs transition cursor-pointer shrink-0"
           >
             <Plus size={14} />
-            <span>Add Link</span>
+            <span>Add</span>
           </button>
         </div>
 

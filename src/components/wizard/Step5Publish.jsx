@@ -30,10 +30,10 @@ export default function Step5Publish({ profile }) {
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200/80 rounded-full text-xs font-semibold mb-2">
           <Sparkles size={13} />
-          <span>Your Portfolio is Configured & Ready!</span>
+          <span>Ready to share</span>
         </div>
-        <h2 className="text-xl font-bold text-zinc-900 tracking-tight">5. Review & Share Your Portfolio Link</h2>
-        <p className="text-xs text-zinc-500 mt-0.5">Everything has been structured and synced. Grab your shareable link, download your personal QR code, or open the live view.</p>
+        <h2 className="text-xl font-bold text-zinc-900 tracking-tight">5. Share</h2>
+        <p className="text-xs text-zinc-500 mt-0.5">Copy your link, open the live page, or save a QR code.</p>
       </div>
 
       <div className="bg-gradient-to-br from-zinc-900 to-zinc-950 text-white rounded-3xl p-6 sm:p-7 shadow-xl space-y-5">
@@ -49,10 +49,10 @@ export default function Step5Publish({ profile }) {
 
         <div>
           <p className="text-xs text-zinc-400 mb-1">Your Unique Portfolio URL</p>
-          <div className="text-lg sm:text-2xl font-bold font-mono tracking-tight text-white flex items-center gap-1 flex-wrap">
+          <div className="text-base sm:text-2xl font-bold font-mono tracking-tight text-white break-all">
             <span>{getPortfolioHost()}/</span>
             <span className="text-emerald-400 underline decoration-emerald-500/50 underline-offset-4">
-              {profile.username || 'Choose a username'}
+              {profile.username || 'username'}
             </span>
           </div>
         </div>

@@ -32,8 +32,8 @@ export default function Register() {
   };
 
   return (
-    <main className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
-      <section className="w-full max-w-md rounded-3xl border border-zinc-200 bg-white p-7 sm:p-9 shadow-sm">
+    <main className="min-h-dvh bg-zinc-50 flex items-center justify-center p-4 py-8">
+      <section className="w-full max-w-md rounded-3xl border border-zinc-200 bg-white p-6 sm:p-9 shadow-sm">
         <Link to="/" className="font-bold text-xl text-zinc-900">linkme.</Link>
         <h1 className="mt-7 text-2xl font-bold text-zinc-900">Create your account</h1>
         <p className="mt-1 text-sm text-zinc-500">Set up your public portfolio profile.</p>

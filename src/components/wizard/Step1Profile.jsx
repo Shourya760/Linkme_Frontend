@@ -28,27 +28,25 @@ export default function Step1Profile({ profile, updateProfile }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-zinc-900 tracking-tight">1. Profile & Public Handle</h2>
-        <p className="text-xs text-zinc-500 mt-0.5">Choose your custom link URL, profile photo, and core bio details.</p>
+        <h2 className="text-lg font-bold text-zinc-900 tracking-tight">1. Profile</h2>
+        <p className="text-xs text-zinc-500 mt-0.5">Handle, photo, name, and bio.</p>
       </div>
 
       <div className="bg-zinc-50/70 border border-zinc-200/90 rounded-2xl p-4 sm:p-5 space-y-3">
         <div>
           <label className="block text-xs font-bold text-zinc-800 mb-1">Choose Your Public URL Handle</label>
-          <div className="flex items-center rounded-xl border border-zinc-200 focus-within:border-zinc-900 bg-white px-3.5 py-2.5 text-sm shadow-2xs transition">
-            <span className="text-zinc-400 font-mono select-none">{getPortfolioHost()}/</span>
+          <div className="flex min-w-0 items-center rounded-xl border border-zinc-200 focus-within:border-zinc-900 bg-white px-3 py-2.5 text-sm shadow-2xs transition">
+            <span className="text-zinc-400 font-mono select-none truncate max-w-[50%] shrink-0">{getPortfolioHost()}/</span>
             <input
               type="text"
               value={profile.username || ''}
               onChange={(e) => updateProfile({ username: e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, '') })}
               placeholder="yourname"
-              className="w-full pl-0.5 font-bold text-zinc-900 focus:outline-none bg-transparent"
+              className="min-w-0 w-full pl-0.5 font-bold text-zinc-900 focus:outline-none bg-transparent"
             />
           </div>
-          <p className="text-[11px] text-zinc-500 mt-1 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            Visitors will access your portfolio via{' '}
-            <span className="font-mono font-medium text-zinc-800">{getPortfolioHost()}/{profile.username || 'username'}</span>
+          <p className="text-[11px] text-zinc-500 mt-1 break-all">
+            Visitors open <span className="font-mono font-medium text-zinc-800">{getPortfolioHost()}/{profile.username || 'username'}</span>
           </p>
         </div>
       </div>

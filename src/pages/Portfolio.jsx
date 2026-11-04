@@ -101,8 +101,8 @@ export default function Portfolio() {
   }
 
   return (
-    <div className={`min-h-screen ${theme.pageBg} ${fontStyle.styleClass} py-8 px-4 sm:px-6 flex flex-col justify-between transition-colors duration-300`}>
-      <div className="max-w-2xl w-full mx-auto flex items-center justify-between mb-8">
+    <div className={`min-h-screen ${theme.pageBg} ${fontStyle.styleClass} py-6 sm:py-8 px-4 sm:px-6 flex flex-col justify-between transition-colors duration-300 overflow-x-hidden`}>
+      <div className="max-w-2xl w-full mx-auto flex items-center justify-between gap-2 mb-6 sm:mb-8">
         <Link
           to="/"
           className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-xs border border-zinc-200/80 text-zinc-700 hover:text-zinc-950 hover:bg-white flex items-center gap-1.5 transition shadow-2xs"
@@ -141,7 +141,7 @@ export default function Portfolio() {
         </div>
       </div>
 
-      <main className={`max-w-xl w-full mx-auto ${theme.cardBg} ${theme.cardBorder} ${theme.cardShadow} border rounded-3xl p-6 sm:p-10 shadow-lg space-y-8 transition-all duration-300`}>
+      <main className={`max-w-xl w-full mx-auto ${theme.cardBg} ${theme.cardBorder} ${theme.cardShadow} border rounded-3xl p-5 sm:p-10 shadow-lg space-y-7 sm:space-y-8 transition-all duration-300`}>
         <div className="text-center space-y-3">
           <div className="relative inline-block">
             {profile.avatar ? (
@@ -312,12 +312,12 @@ export default function Portfolio() {
             <div className="aspect-4/3 w-full bg-zinc-950 overflow-hidden">
               <img src={selectedPhoto.url} alt={selectedPhoto.title} className="w-full h-full object-contain" />
             </div>
-            <div className="p-5 flex items-center justify-between">
-              <div>
-                <h3 className="text-sm font-bold text-zinc-900">{selectedPhoto.title}</h3>
+            <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-sm font-bold text-zinc-900 truncate">{selectedPhoto.title}</h3>
                 {selectedPhoto.caption && <p className="text-xs text-zinc-500 mt-0.5">{selectedPhoto.caption}</p>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 {selectedPhoto.link && (
                   <a
                     href={selectedPhoto.link}

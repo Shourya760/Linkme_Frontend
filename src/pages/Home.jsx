@@ -68,41 +68,41 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50/70 text-zinc-900 pb-16">
+    <div className="min-h-screen bg-neutral-50/70 text-zinc-900 pb-8 sm:pb-16 overflow-x-hidden">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-5">
-        <div className="flex lg:hidden mb-5 p-1 bg-zinc-100 border border-zinc-200 rounded-xl">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
+        <div className="flex lg:hidden mb-4 p-1 bg-zinc-100 border border-zinc-200 rounded-xl">
           <button
             type="button"
             onClick={() => setMobileViewTab('editor')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${mobileViewTab === 'editor' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
+            className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition ${mobileViewTab === 'editor' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
               }`}
           >
-            Step {currentStep} Form
+            Edit
           </button>
           <button
             type="button"
             onClick={() => setMobileViewTab('preview')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${mobileViewTab === 'preview' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
+            className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${mobileViewTab === 'preview' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
               }`}
           >
             <Eye size={14} />
-            <span>Live Card Preview</span>
+            <span>Preview</span>
           </button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           <div className={`lg:col-span-7 space-y-6 ${mobileViewTab === 'preview' ? 'hidden lg:block' : ''}`}>
-            <section className="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
-              <div className="space-y-0.5">
+            <section className="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 shadow-sm">
+              <div className="space-y-0.5 min-w-0 w-full sm:w-auto">
                 <div className="flex items-center gap-2">
                   <span className={`w-2 h-2 rounded-full animate-pulse ${profile.isPublic ? 'bg-emerald-500' : 'bg-red-500'}`} />
                   <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                    Step-by-Step Bio Link Builder
+                    Bio link builder
                   </span>
                 </div>
-                <p className="text-sm font-semibold text-zinc-900 flex items-center gap-1 font-mono">
+                <p className="text-sm font-semibold text-zinc-900 font-mono truncate">
                   {profile.username ? (
                     <>{getPortfolioHost()}/<span className="text-zinc-600">{profile.username}</span></>
                   ) : (
@@ -172,53 +172,52 @@ export default function Home() {
 
             {currentStep === 5 && <Step5Publish profile={profile} />}
 
-            <div className="bg-white border border-zinc-200/90 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 shadow-2xs">
-              <div>
-                {currentStep > 1 ? (
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-zinc-200 hover:bg-zinc-100 text-xs font-semibold text-zinc-700 transition cursor-pointer"
-                  >
-                    <ChevronLeft size={16} />
-                    <span>Back</span>
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-red-600 transition cursor-pointer px-2 py-1"
-                    title="Clear profile content"
-                  >
-                    <RotateCcw size={13} />
-                    <span>Clear Content</span>
-                  </button>
-                )}
-              </div>
+            <div className="bg-white border border-zinc-200/90 rounded-2xl p-3 sm:p-5 flex items-center justify-between gap-2 sm:gap-3 shadow-2xs">
+              {currentStep > 1 ? (
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="flex items-center gap-1 px-3 sm:px-4 py-2.5 rounded-xl border border-zinc-200 hover:bg-zinc-100 text-xs font-semibold text-zinc-700 transition cursor-pointer"
+                >
+                  <ChevronLeft size={16} />
+                  <span>Back</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-red-600 transition cursor-pointer px-2 py-1"
+                  title="Clear profile content"
+                >
+                  <RotateCcw size={13} />
+                  <span className="hidden sm:inline">Clear Content</span>
+                  <span className="sm:hidden">Clear</span>
+                </button>
+              )}
 
-              <div className="flex items-center gap-2">
-                {currentStep < WIZARD_STEPS.length ? (
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    disabled={loading || saving}
-                    className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-xs cursor-pointer active:scale-95 disabled:opacity-50"
-                  >
-                    <span>{saving ? 'Saving…' : loading ? 'Loading…' : `Save & Next: ${WIZARD_STEPS[currentStep]?.title}`}</span>
-                    <ChevronRight size={16} />
-                  </button>
-                ) : (
-                  <a
-                    href={shareUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-xs active:scale-95"
-                  >
-                    <span>Launch Live Portfolio</span>
-                    <ExternalLink size={14} />
-                  </a>
-                )}
-              </div>
+              {currentStep < WIZARD_STEPS.length ? (
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  disabled={loading || saving}
+                  className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-xs cursor-pointer active:scale-95 disabled:opacity-50"
+                >
+                  <span className="sm:hidden">{saving ? 'Saving…' : 'Next'}</span>
+                  <span className="hidden sm:inline">{saving ? 'Saving…' : loading ? 'Loading…' : `Save & Next: ${WIZARD_STEPS[currentStep]?.title}`}</span>
+                  <ChevronRight size={16} />
+                </button>
+              ) : (
+                <a
+                  href={shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-xs active:scale-95"
+                >
+                  <span className="sm:hidden">Launch</span>
+                  <span className="hidden sm:inline">Launch Live Portfolio</span>
+                  <ExternalLink size={14} />
+                </a>
+              )}
             </div>
           </div>
 

@@ -122,7 +122,7 @@ export default function DevicePreview({ profile }) {
 
             {/* Phone Screen */}
             <div
-              className={`relative w-full h-[min(680px,calc(100dvh-10rem))] min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] rounded-[26px] border border-black/10 ${activeTheme.pageBg} ${activeFontStyle.styleClass} transition-colors duration-300`}
+              className={`relative w-full h-[min(560px,calc(100dvh-12rem))] lg:h-[min(680px,calc(100dvh-10rem))] min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] rounded-[26px] border border-black/10 ${activeTheme.pageBg} ${activeFontStyle.styleClass} transition-colors duration-300`}
             >
               {/* Status Bar */}
               <div className="flex justify-between px-5 pt-5 pb-2 text-[9px] font-semibold opacity-75">

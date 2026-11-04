@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL || '',
 });
 
 api.interceptors.request.use((config) => {
@@ -13,7 +13,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const isAuthRequest = /\/auth\/(login|register)(?:\?|$)/.test(error.config?.url || '');
+    const isAuthRequest = /\/(login|register)(?:\?|$)/.test(error.config?.url || '');
     if (error.response?.status === 401 && !isAuthRequest) {
       localStorage.removeItem('linkme_token');
       localStorage.removeItem('linkme_profile');

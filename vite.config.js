@@ -6,10 +6,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-      },
+      ...Object.fromEntries(
+        ['/login', '/register', '/logout', '/account', '/upload', '/me', '/public', '/health'].map((path) => [path, {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          bypass: (request) => request.headers.accept?.includes('text/html') ? request.url : undefined,
+        }]),
+      ),
     },
   },
 });

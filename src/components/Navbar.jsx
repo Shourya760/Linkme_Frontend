@@ -7,6 +7,7 @@ export default function Navbar() {
   const { profile, logout } = useProfile();
   const location = useLocation();
   const navigate = useNavigate();
+  const isPublic = profile.isPublic !== false;
 
   const isActive = (path) => location.pathname === path;
 
@@ -51,8 +52,24 @@ export default function Navbar() {
 
           {profile.isAuthenticated ? (
             <>
-              {profile.username && <span className="hidden sm:block text-xs text-zinc-500">@{profile.username}</span>}
-              <button type="button" onClick={async () => { await logout(); navigate('/login'); }} className="px-2 py-1.5 text-sm text-zinc-500 hover:text-zinc-900">Sign out</button>
+              <div className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5">
+                <span
+                  aria-label={isPublic ? 'Active' : 'Inactive'}
+                  title={isPublic ? 'Portfolio is public' : 'Portfolio is private'}
+                  className={`h-2 w-2 rounded-full ring-2 ${isPublic ? 'bg-emerald-500 ring-emerald-100' : 'bg-red-400 ring-zinc-100'}`}
+                />
+                <span className="max-w-28 sm:max-w-40 truncate text-xs font-semibold text-zinc-800">
+                  {profile.name || profile.username || 'Account'}
+                </span>
+                {profile.username && <span className="hidden md:inline max-w-28 truncate text-xs text-zinc-500">@{profile.username}</span>}
+              </div>
+              <button
+                type="button"
+                onClick={() => { logout(); navigate('/login', { replace: true }); }}
+                className="rounded-lg px-2.5 py-1.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition"
+              >
+                Sign out
+              </button>
             </>
           ) : (
             <>

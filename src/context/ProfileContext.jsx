@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ProfileContext from './profileContext.js';
 import { EMPTY_PROFILE, getStoredProfile, normalizeProfile, saveStoredProfile } from '../utils/storage.js';
 import { getMyProfile, updateMyProfile } from '../services/profileServices.js';
-import { logoutUser } from '../services/userServices.js';
 
 export function ProfileProvider({ children }) {
   const [profile, setProfile] = useState(getStoredProfile);
@@ -103,7 +102,6 @@ export function ProfileProvider({ children }) {
   const register = (user, serverProfile) => login(user, serverProfile);
 
   const logout = async () => {
-    try { await logoutUser(); } catch { /* Local sign out should work without the API. */ }
     localStorage.removeItem('linkme_token');
     localStorage.removeItem('linkme_profile');
     const next = normalizeProfile(EMPTY_PROFILE);

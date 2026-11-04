@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { Check, LogOut } from 'lucide-react';
 import { useProfile } from '../context/useProfile.js';
 import Navbar from '../components/Navbar';
 import { getPortfolioHost } from '../utils/portfolioUrl';
@@ -15,6 +15,10 @@ export default function Settings() {
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    setIsPublic(profile.isPublic !== false);
+  }, [profile.isPublic]);
 
   const handleSave = async (event) => {
     event.preventDefault();
@@ -74,7 +78,15 @@ export default function Settings() {
               <p className="text-xs font-medium">Public visibility</p>
               <p className="text-[11px] text-zinc-400">Allow visitors to view your public portfolio.</p>
             </div>
-            <input type="checkbox" checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} />
+            <input
+              type="checkbox"
+              checked={isPublic}
+              onChange={(event) => {
+                const nextVisibility = event.target.checked;
+                setIsPublic(nextVisibility);
+                updateProfile({ isPublic: nextVisibility });
+              }}
+            />
           </div>
 
           <div className="flex items-center gap-3">
@@ -87,7 +99,20 @@ export default function Settings() {
           </div>
           {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
         </form>
-        <button type="button" onClick={async () => { await logout(); navigate('/login'); }} className="text-sm text-red-600 hover:text-red-700">Sign out</button>
+        <section className="flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-zinc-50/70 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-zinc-900">Sign out</h2>
+            <p className="mt-1 text-xs text-zinc-500">Sign out of your LinkMe account on this device.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => { logout(); navigate('/login', { replace: true }); }}
+            className="inline-flex w-fit items-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm transition hover:border-zinc-400 hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2"
+          >
+            <LogOut size={15} />
+            Sign out
+          </button>
+        </section>
       </main>
     </div>
   );

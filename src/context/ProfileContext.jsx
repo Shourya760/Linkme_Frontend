@@ -83,11 +83,26 @@ export function ProfileProvider({ children }) {
   const saveProfile = async () => {
     setSaving(true);
     try {
-      const { profile: saved } = await updateMyProfile(profile);
+      let result;
+      let usernameTaken = false;
+      try {
+        result = await updateMyProfile(profile);
+      } catch (error) {
+        const message = error.response?.data?.message || '';
+        if (error.response?.status !== 409 || !/username.*(taken|available)/i.test(message)) throw error;
+
+        // A conflicting handle should not prevent the rest of Step 1 from saving.
+        const profileWithoutUsername = Object.fromEntries(
+          Object.entries(profile).filter(([field]) => field !== 'username')
+        );
+        result = await updateMyProfile(profileWithoutUsername);
+        usernameTaken = true;
+      }
+      const { profile: saved } = result;
       const next = normalizeProfile({ ...saved, email: profile.email });
       setProfile(next);
       saveStoredProfile(next);
-      return next;
+      return { profile: next, usernameTaken };
     } finally {
       setSaving(false);
     }

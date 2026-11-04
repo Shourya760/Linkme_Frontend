@@ -48,7 +48,10 @@ export default function Home() {
 
   const handleNext = async () => {
     if (currentStep >= WIZARD_STEPS.length) return;
-    await saveProfile();
+    const result = await saveProfile();
+    if (result?.usernameTaken) {
+      window.alert('That username is already taken. Your other profile changes were saved; choose a different username.');
+    }
     setCurrentStep((step) => step + 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

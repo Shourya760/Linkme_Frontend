@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const PRODUCTION_API_URL = 'https://linkme-backend-3x6i.onrender.com';
+const baseURL = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? PRODUCTION_API_URL : '')).replace(/\/+$/, '');
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '',
+  baseURL,
 });
 
 api.interceptors.request.use((config) => {

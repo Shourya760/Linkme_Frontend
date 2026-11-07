@@ -47,9 +47,20 @@ export default function Navbar() {
 
           {profile.isAuthenticated ? (
             <>
-              <span className="hidden md:inline max-w-32 truncate text-xs font-semibold text-zinc-700 px-2">
-                {profile.name || profile.username || 'Account'}
-              </span>
+              <p
+                className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-medium ${profile.isPublic
+                  ? 'border-emerald-100 bg-emerald-50 text-emerald-700'
+                  : 'border-red-100 bg-red-50 text-red-700'
+                  }`}
+              >
+                <span
+                  className={`w-2 h-2 rounded-full animate-pulse ${profile.isPublic ? 'bg-emerald-500' : 'bg-red-500'
+                    }`}
+                />
+                <span className="hidden md:inline max-w-32 truncate text-xs font-semibold px-2">
+                  {profile.name || profile.username || 'Account'}
+                </span>
+              </p>
               <button
                 type="button"
                 onClick={() => { logout(); navigate('/login', { replace: true }); }}

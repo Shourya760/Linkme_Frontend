@@ -11,6 +11,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { login } = useProfile();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,19 +66,28 @@ export default function Login() {
               className="mt-1.5 w-full rounded-xl border border-zinc-200 px-3.5 py-2.5 font-normal focus:outline-none focus:border-zinc-900"
             />
           </label>
-          <label
-            className="block text-sm font-medium text-zinc-700"
-          >
+          <label className="block text-sm font-medium text-zinc-700">
             Password
-            <input
-              required
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              placeholder='Enter your  password . . .'
-              onChange={(event) => setPassword(event.target.value)}
-              className="mt-1.5 w-full rounded-xl border border-zinc-200 px-3.5 py-2.5 font-normal focus:outline-none focus:border-zinc-900"
-            />
+
+            <div className="relative mt-1.5">
+              <input
+                required
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                value={password}
+                placeholder="Enter your password..."
+                onChange={(event) => setPassword(event.target.value)}
+                className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-3 pr-16 font-normal transition focus:border-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900/10"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-zinc-500 hover:text-zinc-900 transition"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
           </label>
           {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
           <button disabled={loading} className="w-full rounded-xl bg-zinc-900 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800 disabled:opacity-60">

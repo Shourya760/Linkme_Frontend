@@ -189,7 +189,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-red-600 transition cursor-pointer px-2 py-1"
+                  className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-red-500 transition cursor-pointer px-2 py-1"
                   title="Clear profile content"
                 >
                   <RotateCcw size={13} />

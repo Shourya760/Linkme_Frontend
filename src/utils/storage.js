@@ -138,21 +138,15 @@ export const FONT_STYLES = [
 ];
 
 export const PLATFORMS = [
-  { id: 'x', label: 'X (Twitter)', category: 'social', placeholder: 'handle or @user', prefix: 'x.com/' },
   { id: 'instagram', label: 'Instagram', category: 'social', placeholder: 'username', prefix: 'instagram.com/' },
-  { id: 'youtube', label: 'YouTube', category: 'media', placeholder: '@channel or link', prefix: 'youtube.com/' },
   { id: 'linkedin', label: 'LinkedIn', category: 'professional', placeholder: 'in/yourname', prefix: 'linkedin.com/in/' },
   { id: 'github', label: 'GitHub', category: 'tech', placeholder: 'username', prefix: 'github.com/' },
-  { id: 'tiktok', label: 'TikTok', category: 'social', placeholder: '@username', prefix: 'tiktok.com/@' },
-  { id: 'spotify', label: 'Spotify', category: 'media', placeholder: 'artist/user id', prefix: 'open.spotify.com/user/' },
-  { id: 'discord', label: 'Discord', category: 'social', placeholder: 'server link or tag', prefix: 'discord.gg/' },
-  { id: 'twitch', label: 'Twitch', category: 'media', placeholder: 'channel', prefix: 'twitch.tv/' },
-  { id: 'whatsapp', label: 'WhatsApp', category: 'contact', placeholder: 'phone with country code', prefix: 'wa.me/' },
-  { id: 'telegram', label: 'Telegram', category: 'contact', placeholder: 'username', prefix: 't.me/' },
+  { id: 'x', label: 'X (Twitter)', category: 'social', placeholder: 'handle or @user', prefix: 'x.com/' },
   { id: 'email', label: 'Email', category: 'contact', placeholder: 'hello@domain.com', prefix: 'mailto:' },
-  { id: 'website', label: 'Portfolio Website', category: 'professional', placeholder: 'https://mysite.com', prefix: '' },
-  { id: 'behance', label: 'Behance', category: 'design', placeholder: 'username', prefix: 'behance.net/' },
-  { id: 'dribbble', label: 'Dribbble', category: 'design', placeholder: 'username', prefix: 'dribbble.com/' },
+  { id: 'youtube', label: 'YouTube', category: 'media', placeholder: '@channel or link', prefix: 'youtube.com/' },
+  // { id: 'tiktok', label: 'TikTok', category: 'social', placeholder: '@username', prefix: 'tiktok.com/@' },
+  { id: 'spotify', label: 'Spotify', category: 'media', placeholder: 'artist/user id', prefix: 'open.spotify.com/user/' },
+  // { id: 'discord', label: 'Discord', category: 'social', placeholder: 'server link or tag', prefix: 'discord.gg/' },
   { id: 'facebook', label: 'Facebook', category: 'social', placeholder: 'username', prefix: 'facebook.com/' },
 ];
 

@@ -71,8 +71,8 @@ export default function Landing() {
             <div className="relative rotate-[1deg] rounded-[30px] border border-white bg-white/90 p-3 shadow-[0_28px_90px_-30px_rgba(76,29,149,0.42)] backdrop-blur transition-transform duration-300 hover:rotate-0">
               <div className="rounded-[23px] bg-gradient-to-br from-violet-100 via-rose-50 to-amber-50 p-5 sm:p-6">
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[19px] bg-gradient-to-br from-violet-500 to-fuchsia-500 text-xl font-extrabold text-white shadow-lg">A</div>
-                  <div className="min-w-0"><p className="truncate text-base font-extrabold">Alex Morgan <span className="text-violet-500">✦</span></p><p className="mt-0.5 truncate text-xs text-zinc-500">Designer · maker · curious human</p></div>
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[19px] bg-gradient-to-br from-violet-500 to-fuchsia-500 text-xl font-extrabold text-white shadow-lg">S</div>
+                  <div className="min-w-0"><p className="truncate text-base font-extrabold">Shourya Verma<span className="text-violet-500">✦</span></p><p className="mt-0.5 truncate text-xs text-zinc-500">Designer · maker · curious human</p></div>
                 </div>
                 <p className="mt-4 text-sm leading-6 text-zinc-600">Making useful things for the internet. Currently collecting new ideas ☀️</p>
                 <div className="mt-4 flex items-center gap-2">
@@ -91,7 +91,7 @@ export default function Landing() {
                   <div className="h-16 rounded-2xl bg-gradient-to-br from-lime-200 to-amber-100" />
                 </div>
               </div>
-              <div className="flex items-center justify-between px-3 pb-1 pt-3 text-[11px] font-semibold text-zinc-400"><span>linkme.site/alexmorgan</span><span className="inline-flex items-center gap-1.5 text-emerald-600"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Your page, ready to share</span></div>
+              <div className="flex items-center justify-between px-3 pb-1 pt-3 text-[11px] font-semibold text-zinc-400"><span>linkme-sandy.vercel.app/shourya</span><span className="inline-flex items-center gap-1.5 text-emerald-600"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Your page, ready to share</span></div>
             </div>
             <div className="absolute -bottom-5 left-1/2 -z-10 h-16 w-4/5 -translate-x-1/2 rounded-full bg-violet-400/25 blur-2xl" />
           </div>

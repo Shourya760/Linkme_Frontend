@@ -83,7 +83,7 @@ export default function Portfolio() {
             </p>
           </div>
           <div className="pt-2 flex flex-col sm:flex-row gap-2.5">
-            <Link to="/" className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white py-2.5 px-4 rounded-xl text-xs font-bold transition shadow-xs">
+            <Link to="/builder" className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white py-2.5 px-4 rounded-xl text-xs font-bold transition shadow-xs">
               {isNotFound ? 'Open editor' : 'Create Portfolio'}
             </Link>
             <Link to="/settings" className="flex-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 py-2.5 px-4 rounded-xl text-xs font-semibold transition">
@@ -104,7 +104,7 @@ export default function Portfolio() {
     <div className={`min-h-screen ${theme.pageBg} ${fontStyle.styleClass} py-6 sm:py-8 px-4 sm:px-6 flex flex-col justify-between transition-colors duration-300 overflow-x-hidden`}>
       <div className="max-w-2xl w-full mx-auto flex items-center justify-between gap-2 mb-6 sm:mb-8">
         <Link
-          to="/"
+          to={isOwner ? '/builder' : '/'}
           className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-xs border border-zinc-200/80 text-zinc-700 hover:text-zinc-950 hover:bg-white flex items-center gap-1.5 transition shadow-2xs"
         >
           {isOwner && <ArrowLeft size={14} />}

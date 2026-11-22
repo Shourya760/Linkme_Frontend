@@ -30,6 +30,12 @@ export default function Navbar() {
             Home
           </Link>
           <Link
+            to="/builder"
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-medium transition ${isActive('/builder') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'}`}
+          >
+            Editor
+          </Link>
+          <Link
             to="/settings"
             className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-medium transition ${isActive('/settings') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'}`}
           >

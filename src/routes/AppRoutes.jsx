@@ -5,14 +5,16 @@ import Register from '../pages/Register.jsx';
 import Home from '../pages/Home.jsx';
 import Settings from '../pages/Settings.jsx';
 import Portfolio from '../pages/Portfolio.jsx';
+import Landing from '../pages/Landing.jsx';
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/" element={<Landing />} />
       <Route element={<ProtectedLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/builder" element={<Home />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/portfolio" element={<Portfolio />} />
       </Route>

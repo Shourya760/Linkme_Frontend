@@ -23,7 +23,7 @@ export default function Login() {
       localStorage.setItem('linkme_token', result.token);
       const { profile } = await getMyProfile();
       login(result.user, profile);
-      navigate('/', { replace: true });
+      navigate('/builder', { replace: true });
     } catch (requestError) {
       localStorage.removeItem('linkme_token');
       setError(requestError.response?.data?.message || requestError.message || 'Unable to sign in.');

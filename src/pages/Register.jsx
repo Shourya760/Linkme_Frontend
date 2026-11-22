@@ -24,7 +24,7 @@ export default function Register() {
       if (!result?.token) throw new Error(result?.message || 'The server did not return a registration token.');
       localStorage.setItem('linkme_token', result.token);
       register(result.user, result.profile);
-      navigate('/', { replace: true });
+      navigate('/builder', { replace: true });
     } catch (requestError) {
       localStorage.removeItem('linkme_token');
       setError(requestError.response?.data?.message || requestError.message || 'Unable to create your account.');

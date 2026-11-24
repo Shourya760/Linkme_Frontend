@@ -13,7 +13,7 @@ export default function Landing() {
   const { profile } = useProfile();
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#fafafa] text-zinc-900">
+    <div className="flex min-h-screen flex-col overflow-hidden bg-[#fafafa] text-zinc-900">
       {/* Header */}
       <header className="relative z-10 border-b border-gray-200 bg-white">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">

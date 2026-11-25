@@ -1,16 +1,10 @@
 
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
-    <loc>https://linkme-sandy.vercel.app/Landing</loc>
-  </url>
-
-  <url>
-    <loc>https://linkme-sandy.vercel.app/login</loc>
-  </url>
-
-  <url>
-    <loc>https://linkme-sandy.vercel.app/register</loc>
+    <loc>https://linkme-sandy.vercel.app/</loc>
   </url>
 </urlset>
+

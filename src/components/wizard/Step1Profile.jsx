@@ -3,10 +3,10 @@ import { uploadImage } from '../../services/userServices.js';
 import { getPortfolioHost } from '../../utils/portfolioUrl';
 
 const BIO_TEMPLATES = [
-  'Designing minimalist interfaces and crafting open-source digital tools. Exploring AI and typography.',
-  'Full-stack engineer passionate about clean code, cloud architecture, and building fast web products.',
-  'Digital creator sharing weekly stories on technology, productivity, and modern lifestyle.',
-  'Founder & indie hacker building micro-SaaS projects in public. Lover of coffee and minimalism.',
+  'Engineer passionate about solving problems, learning new skills, and turning ideas into reality.',
+  'Exploring technology, creativity, and innovation while building a better future.',
+  'Driven by curiosity, guided by logic, and inspired to make a difference.',
+  'Engineer by profession, curious by nature. Always learning, growing, and creating.',
 ];
 
 export default function Step1Profile({ profile, updateProfile }) {
